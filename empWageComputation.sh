@@ -1,8 +1,8 @@
 #!/bin/bash -x
 echo " Welcome to employee wage computation "
-IsPRESENT = 1
-empcheck = $(( RANDOM%2 ))
-if [ $empcheck -eq $IsPRESENT ]
+IsPRESENT = 1 #to check with the random number generated
+empcheck = $(( RANDOM%2 )) #random number generation
+if [ $empcheck -eq $IsPRESENT ] #condition check
 then 
 	echo "Employee present"
 else
