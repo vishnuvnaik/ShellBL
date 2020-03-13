@@ -1,30 +1,27 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 #!/bin/bash -x
-=======
-#!/bin/bash 
->>>>>>> 5dd460bd4fb5d693d7352ead6637e3cda640fdb7
-=======
-#!/bin/bash
->>>>>>> employeeDailyWageFeature
 echo " Welcome to employee wage computation "
-read -p "enter the hours present  " hours
-fulldayhour=8
+partTimeHour=4
 wages=20
-IsPRESENT=1 #to check with the random number generated
+IsPRESENT=1
+isFullTime=1
+isPartTime=2 #to check with the random number generated
 empcheck=$(( RANDOM%2 )) #random number generation
-if [ $empcheck -eq $IsPRESENT ] #condition check
+if [ $empcheck -eq $IsPRESENT ] #condition check for employee attendance
 then
-	echo "Employee present"
-        if [ $hours -eq 8 ] #condition for fulldayhour
-        then
-	     totalWages=$(( fulldayhour*wages ))
-	     echo "$totalWages"
-        else
-	     totalWages=$(( wages*hours )) #condition for other than fulldayhour
-             echo "$totalWages"
-        fi
+    hourCheck=$(( RANDOM%3 ))
+    if [ $hourCheck -eq $isFullTime ] #check for fulltime employee
+    then
+        workingHours=8 #fulltime working hours
+	totalWages=$(( workingHours * wages ))
+	echo "full time wage = $totalWages" #printing wages
+    elif [ $hourCheck -eq $isPartTime ]  #parttime check
+	then
+  	    workingHours=4
+	    totalWages=$(( workingHours * wages ))
+	    echo "parttime wage = $totalWages" #printing part time wages
+    else
+	echo "employee is Absent"
+    fi
 else
-	echo "Employee absent"
+    echo "employee is absent"
 fi
-
