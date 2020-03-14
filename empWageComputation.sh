@@ -4,12 +4,11 @@ totalWorkingHours=100
 wagesperhour=20
 totalworkingDays=20
 workingdays=0
+totalwages=0
 workingHours=0
 isFullTime=1
 isPartTime=2
-while (( workingdays < $totalworkingDays||workingHours < $totalWorkingHours )) #condition checking
-do
-    ((workingdays=workingdays+1)) #incrementing
+getemphrs() {
     empCheck=$(( RANDOM%3 ))
     case $empCheck in
          $isFullTime ) #fulltime employee
@@ -18,12 +17,15 @@ do
          $isPartTime )  #parttime check
   	   workingHoursperday=4
 	   ;;
-           * )
-	   workingHoursperday=0 #absent employees
-	   ;;
     esac
-	workingHours=$(($workingHoursperday+$workingHours)); #compuation and printing
-        totalwageperday=$(( $workingHoursperday*$wagesperhour )) #computation for perday
+        echo "$workingHoursperday"
+}
+getemphrs
+while (( $workingdays<$totalworkingDays&&$workingHours<$totalWorkingHours )) #loop to check the condition of days and hours
+do
+        ((workingdays++)) #incrementing of workingdays
+	workingHours=$(( $workingHoursperday+$workingHours )) #compuation and printing
+        totalwageperday=$(( $workingHours*$wagesperhour )) #computation of wages per day
+        totalwages=$(( $totalwageperday+$totalwages )) #printing of final result
 done
-totalwages=$(( $totalwageperday*$totalwages)); #printing of final result
-echo " total wage = $totalwages "
+echo "total wage = $totalwages"
