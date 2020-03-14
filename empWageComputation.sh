@@ -1,27 +1,29 @@
 #!/bin/bash -x
 echo " Welcome to employee wage computation "
-wages=20
-workingDays=20
-IsPRESENT=1 #to check with the random number
+totalWorkingHours=100
+wagesperhour=20
+totalworkingDays=20
+workingdays=0
+workingHours=0
 isFullTime=1
 isPartTime=2
-empcheck=$(( RANDOM%2 )) #random number generation
-if [ $empcheck -eq $IsPRESENT ] #condition check for employee attendance
-then
-    hourCheck=$(( RANDOM%3 ))
-    case $hourCheck in
-         $isFullTime ) #check for fulltime employee
-           workingHours=8
-	   echo "fulltime worker " #fulltime working hours
-	;;
-        $isPartTime )  #parttime check
-  	   workingHours=4
-	   echo "Part time worker "
-	;;
+while (( workingdays < $totalworkingDays||workingHours < $totalWorkingHours )) #condition checking
+do
+    ((workingdays=workingdays+1)) #incrementing
+    empCheck=$(( RANDOM%3 ))
+    case $empCheck in
+         $isFullTime ) #fulltime employee
+           workingHoursperday=8
+	   ;;
+         $isPartTime )  #parttime check
+  	   workingHoursperday=4
+	   ;;
+           * )
+	   workingHoursperday=0 #absent employees
+	   ;;
     esac
-	totalwageperday=$(( $workingHours * $wages )) #computation for permonth
-	wagespermonth=$(( $totalwageperday * $workingDays))
-	echo "wages per month  = $wagespermonth"
-else
-   echo "employee is absent"
-fi
+	workingHours=$(($workingHoursperday+$workingHours)); #compuation and printing
+        totalwageperday=$(( $workingHoursperday*$wagesperhour )) #computation for perday
+done
+totalwages=$(( $totalwageperday*$totalwages)); #printing of final result
+echo " total wage = $totalwages "
