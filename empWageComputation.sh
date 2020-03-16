@@ -9,7 +9,7 @@ totalwages=0
 workingHours=0
 isFullTime=1
 isPartTime=2
-declare -A dailyWagee
+declare -A dailyWagee #dictionary declared
 getemphrs() { #function
     empCheck=$(( RANDOM%3 ))
     case $empCheck in
@@ -31,8 +31,8 @@ do
 	(( workingdays++))
         day="Day"
 done
-dailyWagee["$day"]=$(( $workingHoursperday*$wagesperhour )) #Array for daily wage
+dailyWagee["$day $workingdays"]=$(( $workingHoursperday*$wagesperhour )) #Dictionary for daily wage
 totalwages=$(( $workingHours*$wagesperhour )) #calculation of  total wage
-dailyWagee[permonth]=$(( $totalwages )) #totalwage is stored in the array
-echo "${dailyWagee[@]}" #printing array
+dailyWagee[permonth]=$(( $totalwages )) #totalwage is stored in the dictionary
+echo "${dailyWagee[@]}" #printing dictionary
 echo "${!dailyWagee[@]}"
